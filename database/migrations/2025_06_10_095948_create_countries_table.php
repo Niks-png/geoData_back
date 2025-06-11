@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->decimal('area_km2',8 ,2);
+            $table->decimal('area_km2', 10, 2)->nullable();
             $table->integer('population');
+            $table->timestamps();
            
         });
     }

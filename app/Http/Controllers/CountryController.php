@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Country;
 use Illuminate\Http\Request;
 
@@ -22,10 +23,15 @@ class CountryController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:100',
             'area' => 'required|numeric',
-            'population' => 'required|integer'
+            'population' => 'required|integer',
         ]);
 
+        // Map 'area' input to 'area_km2' for the database
+        $validated['area_km2'] = $validated['area'];
+        unset($validated['area']);
+
         Country::create($validated);
+
         return redirect()->route('countries.index');
     }
 
@@ -44,10 +50,15 @@ class CountryController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:100',
             'area' => 'required|numeric',
-            'population' => 'required|integer'
+            'population' => 'required|integer',
         ]);
 
+        // Map 'area' input to 'area_km2' for the database
+        $validated['area_km2'] = $validated['area'];
+        unset($validated['area']);
+
         $country->update($validated);
+
         return redirect()->route('countries.show', $country);
     }
 
@@ -55,5 +66,11 @@ class CountryController extends Controller
     {
         $country->delete();
         return redirect()->route('countries.index');
+    }
+
+    public function apiIndex()
+    {
+        $countries = Country::all();
+        return response()->json($countries);
     }
 }

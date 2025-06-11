@@ -20,7 +20,6 @@ return new class extends Migration
                   ->constrained('countries') // vai vienkārši ->constrained() ja tabulas nosaukums ir 'countries'
                   ->onDelete('cascade')     // dzēš arī cities, ja dzēš country
                   ->onUpdate('cascade');    // atjauno arī cities, ja atjauno country ID
-
             $table->timestamps();
         });
     }

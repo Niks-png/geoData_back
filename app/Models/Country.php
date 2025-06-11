@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    /** @use HasFactory<\Database\Factories\CountryFactory> */
     use HasFactory;
-    protected $filllable = ['name','area_km2','population',
-            ];
-            public function country()
-            {
-                return $this->belongsTo(Country::class);
-            }
-        
+
+    protected $fillable = ['name', 'area_km2', 'population'];
+
+    // Accessor for 'area'
+    public function getAreaAttribute()
+    {
+        return $this->area_km2;
+    }
+
+    // Mutator for 'area'
+    public function setAreaAttribute($value)
+    {
+        $this->attributes['area_km2'] = $value;
+    }
 }

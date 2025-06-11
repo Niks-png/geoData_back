@@ -1,6 +1,4 @@
-<?php
-use App\Http\Controllers\CountryController;
-?><x-layout>
+<x-layout>
     <div class="container">
         <h1>Edit Country: {{ $country->name }}</h1>
 
@@ -15,7 +13,7 @@ use App\Http\Controllers\CountryController;
             </div>
 
             <div class="form-group">
-                <label>Area (kmÂ²):</label>
+                <label>Area (km²):</label>
                 <input type="number" name="area" step="0.01" required
                        class="form-control" value="{{ old('area', $country->area) }}">
             </div>
@@ -27,6 +25,17 @@ use App\Http\Controllers\CountryController;
             </div>
 
             <button type="submit" class="btn btn-primary">Update Country</button>
+        </form>
+
+        <!-- Destroy/Delete form -->
+        <form action="{{ route('countries.destroy', $country) }}" method="POST" style="margin-top: 20px;">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this country?')">
+                Delete Country
+            </button>
         </form>
     </div>
 </x-layout>
